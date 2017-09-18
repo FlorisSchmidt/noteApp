@@ -11,7 +11,7 @@ describe('NoteListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ FormsModule ],
-      declarations: [ NoteListComponent ]
+      declarations: [ NoteListComponent]
     })
     .compileComponents();
   }));
