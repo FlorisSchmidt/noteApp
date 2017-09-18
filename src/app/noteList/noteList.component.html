@@ -1,8 +1,8 @@
-<div>
-    <h2>List</h2>
-    <input type=text #key (keyup.enter)=addNote(key.value) />
-    <button (click)='addNote(key.value)'>Save</button>
-    <ul>
-      <li *ngFor='let note of notes; let i = index'>{{ note }}<span (click)='removeNote(i)'>X</span></li>
-    </ul>
+<div id='noteList'>
+  <h2>List</h2>
+  <input type=text [(ngModel)]='inputValue' (keyup.enter)=addNote(inputValue)/>
+  <button (click)='addNote(inputValue)'>Save</button>
+  <ul>
+    <li *ngFor='let note of notes; let i = index'>{{ note }}<span (click)='removeNote(i)'>X</span></li>
+  </ul>
 </div>
