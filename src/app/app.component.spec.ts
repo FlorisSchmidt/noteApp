@@ -2,12 +2,21 @@ import { TestBed, async } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
 
+import { NoteListComponent } from './noteList/noteList.component';
+import { NoteTextComponent } from './noteText/noteText.component';
+import { FormsModule } from '@angular/forms'
+
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        NoteListComponent,
+        NoteTextComponent
       ],
+      imports: [
+        FormsModule
+      ]
     }).compileComponents();
   }));
 
