@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-noteList',
   templateUrl: './noteList.component.html',
@@ -15,9 +15,10 @@ export class NoteListComponent implements OnInit {
 
   ngOnInit() {
   }
-  notes: string[]=[];
-  notesContent=[];
-  key: string = '';
+  public notes: string[]=[];
+  public notesContent=[];
+  private key: string = '';
+  private inputValue: string = '';
 
   addNote(key:string,content:string) {
     if(key == ''){
@@ -30,6 +31,7 @@ export class NoteListComponent implements OnInit {
     }
     this.notes.push(key);
     localStorage.setItem(key,content);
+    this.inputValue = '';
     }
   
   removeNote(index:number) {
