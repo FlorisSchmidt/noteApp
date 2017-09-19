@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { NoteListComponent } from '../noteList/noteList.component';
 
+import { DataService } from '../data.service';
+
 @Component({
   selector: 'app-noteText',
   templateUrl: './noteText.component.html',
@@ -9,14 +11,12 @@ import { NoteListComponent } from '../noteList/noteList.component';
 })
 export class NoteTextComponent implements OnInit {
 
-  constructor() {
+  constructor(private DataService: DataService) {
    }
 
   ngOnInit() {
   }
-  NoteListComponent = new NoteListComponent;
-  text = this.NoteListComponent.notes[0];
-  
   save() {
+
   }
 }
