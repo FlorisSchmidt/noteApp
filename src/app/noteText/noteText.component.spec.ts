@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { NoteTextComponent } from './noteText.component';
-
 import { FormsModule } from '@angular/forms';
+import { DataService } from '../data.service';
 
 describe('NoteTextComponent', () => {
   let component: NoteTextComponent;
@@ -11,7 +10,8 @@ describe('NoteTextComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ FormsModule ],
-      declarations: [ NoteTextComponent ]
+      declarations: [ NoteTextComponent ],
+      providers: [ DataService ]
     })
     .compileComponents();
   }));
