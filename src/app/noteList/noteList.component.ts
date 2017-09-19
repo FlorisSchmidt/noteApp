@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { DataService } from '../data.service';
 @Component({
   selector: 'app-noteList',
   templateUrl: './noteList.component.html',
   styleUrls: ['./noteList.component.css']
 })
 export class NoteListComponent implements OnInit {
-  constructor() {
+  constructor(private DataService: DataService) {
     for(let x=0;x<localStorage.length;x++){
       this.notes[x]=localStorage.key(x);
       this.notesContent[x]=localStorage.getItem(this.notes[x]);
@@ -39,5 +40,9 @@ export class NoteListComponent implements OnInit {
     localStorage.removeItem(key);
     this.notes.splice(index,1);
     this.notesContent.splice(index,1)
+  }
+
+  setActiveIndex(index){
+    this.DataService.activeIndex = index;
   }
 }
