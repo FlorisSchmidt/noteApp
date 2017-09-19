@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { NoteListComponent } from './noteList.component';
-
 import { FormsModule } from '@angular/forms';
+import { DataService } from '../data.service';
 
 describe('NoteListComponent', () => {
   let component: NoteListComponent;
@@ -11,7 +10,8 @@ describe('NoteListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ FormsModule ],
-      declarations: [ NoteListComponent]
+      declarations: [ NoteListComponent],
+      providers: [ DataService ]
     })
     .compileComponents();
   }));
@@ -29,14 +29,14 @@ describe('NoteListComponent', () => {
 
 describe('constructor', () => {
   it('constructor should create an array with the same length as localStorage', () => {
-    let testObject = new NoteListComponent;
+    let testObject = new NoteListComponent(this.DataService);
     expect(testObject.notes.length).toBe(localStorage.length);
     expect(testObject.notesContent.length).toBe(localStorage.length);
   })
 })
 
 describe('removeNote function', () => {
-  let testObject = new NoteListComponent;
+  let testObject = new NoteListComponent(this.DataService);
   let testIndex = 0;
   
   it('should remove the localStorage with the given key',() => {
@@ -62,7 +62,7 @@ describe('removeNote function', () => {
 })
 
 describe('addNote function', () => {
-  let testObject = new NoteListComponent;
+  let testObject = new NoteListComponent(this.DataService);
   
   beforeEach(() => {
     testObject.addNote('mock key', 'mock content');
@@ -91,7 +91,7 @@ describe('addNote function', () => {
 })
 
 describe('addNote exceptions', () => {
-  let testObject = new NoteListComponent;
+  let testObject = new NoteListComponent(this.DataService);
   it('should alert the user if the input field is empty', () => {
     testObject.addNote('','');
     expect(testObject.notes.length).toBe(0);
