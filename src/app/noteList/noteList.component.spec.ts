@@ -31,7 +31,6 @@ describe('constructor', () => {
   it('constructor should create an array with the same length as localStorage', () => {
     let testObject = new NoteListComponent(this.DataService);
     expect(testObject.notes.length).toBe(localStorage.length);
-    expect(testObject.notesContent.length).toBe(localStorage.length);
   })
 })
 
@@ -53,19 +52,13 @@ describe('removeNote function', () => {
     expect(testObject.notes[0]).toBeUndefined();
     
   })
-
-  it('should remove the content from the noteContent array', () => {
-    testObject.notesContent[testIndex] = 'mock data';
-    testObject.removeNote(testIndex);
-    expect(testObject.notesContent[0]).toBeUndefined();
-  })
 })
 
 describe('addNote function', () => {
   let testObject = new NoteListComponent(this.DataService);
   
   beforeEach(() => {
-    testObject.addNote('mock key', 'mock content');
+    testObject.addNote('mock key');
   })
 
   afterEach(() => {
@@ -81,19 +74,19 @@ describe('addNote function', () => {
   })
 
   it('should return an error if the key is empty', () => {
-    expect(testObject.addNote('','')).toBe(1);
+    expect(testObject.addNote('')).toBe(1);
   })
 
   it('should return an error if the key exists', () => {
-    testObject.addNote('mock key', '');
-    expect(testObject.addNote('mock key', '')).toBe(2);
+    testObject.addNote('mock key');
+    expect(testObject.addNote('mock key')).toBe(2);
   })
 })
 
 describe('addNote exceptions', () => {
   let testObject = new NoteListComponent(this.DataService);
   it('should alert the user if the input field is empty', () => {
-    testObject.addNote('','');
+    testObject.addNote('');
     expect(testObject.notes.length).toBe(0);
   })
 
