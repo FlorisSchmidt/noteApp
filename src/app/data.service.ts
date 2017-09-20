@@ -4,5 +4,6 @@ import { Injectable } from '@angular/core';
 export class DataService {
 
   constructor() { }
-  activeIndex: number;
+  public activeIndex: number;
+  public activeContent: string;
 }
