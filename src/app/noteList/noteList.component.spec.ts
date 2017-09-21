@@ -25,4 +25,3 @@ describe('NoteListComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
-});
