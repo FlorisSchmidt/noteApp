@@ -3,3 +3,26 @@
     width: 50%;
     border: 1px solid black;
 }
+
+li {
+    margin-top: 5px;
+    border: 1px solid black;
+    width: 200px;
+}
+
+ul :hover {
+    background-color: gray;
+}
+
+span {
+    width: 20px;
+    border: 1px solid black;
+    float: right;
+    margin-right: 2px;
+    padding-left: 10px;
+    background-color: white;
+}
+
+.selected {
+    background-color: lightgray;
+}
