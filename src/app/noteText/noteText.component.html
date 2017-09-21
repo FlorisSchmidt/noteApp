@@ -1,5 +1,5 @@
-<div *ngIf='this.DataService.activeIndex!=undefined'>
+<div *ngIf="this.DataService.storageEmpty!=true">
   <div id=text contenteditable="none">{{ this.DataService.activeContent }}</div>
-  <button (click)='save()' (click)='edit()'>{{button}}</button>
+  <button (click)='save()' (click)='edit()'>{{ button }}</button>
   <textarea *ngIf='editable' [(ngModel)]='this.DataService.activeContent'></textarea>
 </div>
