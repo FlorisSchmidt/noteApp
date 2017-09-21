@@ -8,24 +8,20 @@ import { DataService } from '../data.service';
   styleUrls: ['./noteList.component.css']
 })
 export class NoteListComponent implements OnInit {
+  
   constructor(private DataService: DataService) {
-    for(let x=0;x<localStorage.length;x++){
-      this.notes[x]=localStorage.key(x);
-    }
-    if(localStorage.length==0){
-      this.DataService.activeIndex=undefined;
-    } else {
-      this.setActiveIndex(0);
-    }
+  this.refillNotes();
+  this.setActiveIndex(0);
+  this.StorageEmpty();
   }
 
   ngOnInit() {
   }
 
-  public notes: string[]=[];
+  private notes: string[]=[];
   private inputValue: string = '';
 
-  addNote(input:string) {
+  private addNote(input:string) {
     if(input == ''){
       alert("Key is empty");
       return 1;
@@ -34,27 +30,37 @@ export class NoteListComponent implements OnInit {
       alert("It exists already!");
       return 2;
     }
-
-    this.notes.push(input);
+    localStorage.setItem(input,'');
+    this.DataService.activeContent = '';
     this.inputValue = '';
-    localStorage.setItem(input,"");
-    this.setActiveIndex(localStorage.length-1);
+    this.refillNotes();
+    this.StorageEmpty();
   }
-  
-  removeNote(index:number) {
+
+  private setActiveIndex(index:number){
+    this.DataService.activeIndex = index;
+    this.DataService.activeContent = localStorage.getItem(localStorage.key(index));
+  }
+
+  private removeNote(index:number) {
     let key=localStorage.key(index);
     localStorage.removeItem(key);
     this.notes.splice(index,1);
+    this.setActiveIndex(0);
+    this.StorageEmpty();
+  }
 
-    if(localStorage.length>0){
-      this.setActiveIndex(0);
-    } else {
-      this.setActiveIndex(undefined);
+  private refillNotes(){
+    for(let x=0;x<localStorage.length;x++){
+      this.notes[x]=localStorage.key(x);
     }
   }
 
-  setActiveIndex(index: number){
-    this.DataService.activeIndex = index;
-    this.DataService.activeContent = localStorage.getItem(localStorage.key(this.DataService.activeIndex));
+  private StorageEmpty(){
+    if (localStorage.length==0){
+      this.DataService.storageEmpty = true;
+    } else {
+      this.DataService.storageEmpty = false;
+    }
   }
 }
