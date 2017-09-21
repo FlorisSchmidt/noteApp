@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NoteListComponent } from '../noteList/noteList.component';
 import { DataService } from '../data.service';
+import * as marked from 'marked';
 
 @Component({
   selector: 'app-noteText',
@@ -19,6 +20,7 @@ export class NoteTextComponent implements OnInit {
 
   save(){
     localStorage.setItem(localStorage.key(this.DataService.activeIndex), this.DataService.activeContent);
+    this.DataService.markedContent = marked(this.DataService.activeContent);
   }
 
   edit(){

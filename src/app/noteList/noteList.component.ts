@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DataService } from '../data.service';
+import * as marked from 'marked';
 
 @Component({
   selector: 'app-noteList',
@@ -32,6 +33,9 @@ export class NoteListComponent implements OnInit {
     }
     localStorage.setItem(input,'');
     this.DataService.activeContent = '';
+    if(this.DataService.activeContent!=undefined){
+    this.DataService.markedContent = marked(this.DataService.activeContent);
+    }
     this.inputValue = '';
     this.refillNotes();
     this.StorageEmpty();
@@ -40,6 +44,9 @@ export class NoteListComponent implements OnInit {
   private setActiveIndex(index:number){
     this.DataService.activeIndex = index;
     this.DataService.activeContent = localStorage.getItem(localStorage.key(index));
+    if(this.DataService.activeContent!=undefined){
+      this.DataService.markedContent = marked(this.DataService.activeContent);
+    }
   }
 
   private removeNote(index:number) {
