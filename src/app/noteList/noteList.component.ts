@@ -11,20 +11,20 @@ import * as marked from 'marked';
 export class NoteListComponent implements OnInit {
   
   constructor(private DataService: DataService) {
-  this.refillNotes();
-  this.setActiveIndex(0);
-  this.StorageEmpty();
+    this.refillNotes();
+    this.setActiveIndex(0);
+    this.isStorageEmpty();
   }
 
   ngOnInit() {
   }
 
-  private notes: string[]=[];
-  private inputValue: string = '';
+  private notes:string[]=[];
+  private inputValue:string = '';
 
   private addNote(input:string) {
-    if(input == ''){
-      alert("Key is empty");
+    if(input==''){
+      alert("Input is empty");
       return 1;
     }
     if(localStorage.getItem(input)!=undefined){
@@ -32,20 +32,20 @@ export class NoteListComponent implements OnInit {
       return 2;
     }
     localStorage.setItem(input,'');
-    this.DataService.activeContent = '';
+    this.DataService.activeContent='';
     if(this.DataService.activeContent!=undefined){
-    this.DataService.markedContent = marked(this.DataService.activeContent);
+      this.DataService.markedContent=marked(this.DataService.activeContent);
     }
-    this.inputValue = '';
+    this.inputValue='';
     this.refillNotes();
-    this.StorageEmpty();
+    this.isStorageEmpty();
   }
 
   private setActiveIndex(index:number){
-    this.DataService.activeIndex = index;
-    this.DataService.activeContent = localStorage.getItem(localStorage.key(index));
+    this.DataService.activeIndex=index;
+    this.DataService.activeContent=localStorage.getItem(localStorage.key(index));
     if(this.DataService.activeContent!=undefined){
-      this.DataService.markedContent = marked(this.DataService.activeContent);
+      this.DataService.markedContent=marked(this.DataService.activeContent);
     }
   }
 
@@ -54,7 +54,7 @@ export class NoteListComponent implements OnInit {
     localStorage.removeItem(key);
     this.notes.splice(index,1);
     this.setActiveIndex(0);
-    this.StorageEmpty();
+    this.isStorageEmpty();
   }
 
   private refillNotes(){
@@ -63,7 +63,7 @@ export class NoteListComponent implements OnInit {
     }
   }
 
-  private StorageEmpty(){
+  private isStorageEmpty(){
     if (localStorage.length==0){
       this.DataService.storageEmpty = true;
     } else {

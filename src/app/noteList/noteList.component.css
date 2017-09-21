@@ -23,6 +23,6 @@ span {
     background-color: white;
 }
 
-.selected {
-    background-color: lightgray;
+li :hover {
+    background-color:red;
 }

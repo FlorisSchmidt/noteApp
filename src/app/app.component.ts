@@ -6,8 +6,8 @@ import { DataService } from './data.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [ DataService ]
+  providers: [DataService]
 })
 export class AppComponent {
-  title = 'app';
+  title='app';
 }
