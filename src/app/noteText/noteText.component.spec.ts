@@ -26,3 +26,15 @@ describe('NoteTextComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+describe('Save function', ()=>{
+  it('should change mock data to new mock data', ()=>{
+    localStorage.setItem('mock key', 'mock data');
+    this.DataService = DataService;
+    this.testObject = new NoteTextComponent(this.DataService);
+    this.DataService.activeIndex = 0;
+    this.DataService.activeContent = 'new mock data';
+    this.testObject.save();
+    expect(localStorage.getItem('mock key')).toBe('new mock data');
+  })
+})
