@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DataService } from '../data.service';
 import * as marked from 'marked';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-noteList',
