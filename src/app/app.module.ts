@@ -5,7 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { NoteListComponent } from './noteList/noteList.component';
 import { NoteTextComponent } from './noteText/noteText.component';
-import { DataService } from './data.service';
+import { RouterModule } from '@angular/router';
+
 
 @NgModule({
   declarations: [
@@ -15,9 +16,15 @@ import { DataService } from './data.service';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot([
+      {
+      path: 'note/:i', 
+      component: NoteTextComponent 
+      }
+    ])
   ],
-  providers: [DataService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
