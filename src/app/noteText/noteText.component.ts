@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NoteListComponent } from '../noteList/noteList.component';
-import { DataService } from '../data.service';
 import * as marked from 'marked';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-noteText',
@@ -10,17 +9,28 @@ import * as marked from 'marked';
 })
 export class NoteTextComponent implements OnInit {
 
-  constructor(private DataService: DataService) {
-  }
-  private editable:boolean=false;
-  private button:string='EDIT';
+  constructor(private route: ActivatedRoute) {}
+
+  private editable:boolean;
+  private button:string;
+  private content:string;
+  private marked:string;
+  private id:number;
+  private sub:any;
 
   ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      this.id = +params.get('i');
+    })
+    this.content = localStorage.getItem(localStorage.key(this.id));
+    this.marked = marked(this.content);
+    this.button='EDIT';
+    this.editable=false;
   }
 
   save(){
-    localStorage.setItem(localStorage.key(this.DataService.activeIndex), this.DataService.activeContent);
-    this.DataService.markedContent=marked(this.DataService.activeContent);
+    localStorage.setItem(localStorage.key(this.id), this.content);
+    this.marked = marked(this.content);
   }
 
   edit(){
