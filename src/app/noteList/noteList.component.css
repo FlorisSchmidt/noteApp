@@ -26,3 +26,7 @@ span {
 li :hover {
     background-color:red;
 }
+
+.active {
+    background-color:lightgray;
+}
