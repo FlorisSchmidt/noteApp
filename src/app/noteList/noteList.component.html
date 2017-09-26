@@ -4,8 +4,9 @@
   <button (click)='addNote(inputValue)'>Save</button>
   <ul>
     <li 
-      *ngFor='let note of notes; let i = index' 
-      (click)='setActiveIndex(i)'>
+      *ngFor='let note of notes; let i = index'
+      routerLinkActive='active'
+      [routerLink]="['note', i]">
       {{ note }}
       <span (click)='removeNote(i)'>X</span>
   </li>
