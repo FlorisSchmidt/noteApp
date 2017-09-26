@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DataService } from '../data.service';
 import * as marked from 'marked';
-import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-noteList',
@@ -11,13 +10,11 @@ import { RouterModule } from '@angular/router';
 })
 export class NoteListComponent implements OnInit {
   
-  constructor(private DataService: DataService) {
-    this.refillNotes();
-    this.setActiveIndex(0);
-    this.isStorageEmpty();
+  constructor(private router: Router) {
   }
 
   ngOnInit() {
+    this.refillNotes();
   }
 
   private notes:string[]=[];
@@ -33,42 +30,21 @@ export class NoteListComponent implements OnInit {
       return 2;
     }
     localStorage.setItem(input,'');
-    this.DataService.activeContent='';
-    if(this.DataService.activeContent!=undefined){
-      this.DataService.markedContent=marked(this.DataService.activeContent);
-    }
     this.inputValue='';
     this.refillNotes();
-    this.isStorageEmpty();
-  }
-
-  private setActiveIndex(index:number){
-    this.DataService.activeIndex=index;
-    this.DataService.activeContent=localStorage.getItem(localStorage.key(index));
-    if(this.DataService.activeContent!=undefined){
-      this.DataService.markedContent=marked(this.DataService.activeContent);
-    }
+    this.router.navigate(['/']);
   }
 
   private removeNote(index:number) {
     let key=localStorage.key(index);
     localStorage.removeItem(key);
     this.notes.splice(index,1);
-    this.setActiveIndex(0);
-    this.isStorageEmpty();
+    this.router.navigate(['/']);
   }
 
   private refillNotes(){
     for(let x=0;x<localStorage.length;x++){
       this.notes[x]=localStorage.key(x);
-    }
-  }
-
-  private isStorageEmpty(){
-    if (localStorage.length==0){
-      this.DataService.storageEmpty = true;
-    } else {
-      this.DataService.storageEmpty = false;
     }
   }
 }
