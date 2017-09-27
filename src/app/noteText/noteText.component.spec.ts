@@ -1,7 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoteTextComponent } from './noteText.component';
 import { FormsModule } from '@angular/forms';
-import { DataService } from '../data.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MarkPipe } from '../mark.pipe';
+
+import { ActivatedRoute, Router } from '@angular/router';
 
 describe('NoteTextComponent', () => {
   let component: NoteTextComponent;
@@ -9,9 +12,9 @@ describe('NoteTextComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule ],
-      declarations: [ NoteTextComponent ],
-      providers: [ DataService ]
+      imports: [ FormsModule, RouterTestingModule ],
+      declarations: [ NoteTextComponent,MarkPipe ],
+      providers: [ ]
     })
     .compileComponents();
   }));
@@ -27,14 +30,17 @@ describe('NoteTextComponent', () => {
   });
 });
 
-describe('Save function', ()=>{
-  it('should change mock data to new mock data', ()=>{
+describe('NoteTextComponent functions', ()=>{
+afterEach(()=>{
+  localStorage.clear();
+})
+
+  it('save should store content at active ID', ()=>{
+    let testObject = new NoteTextComponent(this.ActivatedRoute, this.Router);
     localStorage.setItem('mock key', 'mock data');
-    this.DataService = DataService;
-    this.testObject = new NoteTextComponent(this.DataService);
-    this.DataService.activeIndex = 0;
-    this.DataService.activeContent = 'new mock data';
-    this.testObject.save();
+    testObject.id = 0;
+    testObject.content = 'new mock data';
+    testObject.save();
     expect(localStorage.getItem('mock key')).toBe('new mock data');
   })
 })
