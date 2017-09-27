@@ -1,10 +1,10 @@
 <div id='noteList'>
   <h2>List</h2>
-  <input type=text [(ngModel)]='inputValue' (keyup.enter)=addNote(inputValue)/>
-  <button (click)='addNote(inputValue)'>Save</button>
+  <input type=text [(ngModel)]='_inputValue' (keyup.enter)=addNote(_inputValue)/>
+  <button (click)='addNote(_inputValue)'>Save</button>
   <ul>
     <li 
-      *ngFor='let note of notes; let i = index'
+      *ngFor='let note of _notes; let i = index'
       routerLinkActive='active'
       [routerLink]="['note', i]">
       {{ note }}

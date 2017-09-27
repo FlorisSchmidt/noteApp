@@ -16,8 +16,8 @@ export class NoteListComponent implements OnInit {
     this.refillNotes();
   }
 
-  private notes:string[]=[];
-  private inputValue:string = '';
+  private _notes:string[]=[];
+  private _inputValue:string = '';
 
   private addNote(input:string) {
     if(input==''){
@@ -29,7 +29,7 @@ export class NoteListComponent implements OnInit {
       return 2;
     }
     localStorage.setItem(input,'');
-    this.inputValue='';
+    this._inputValue='';
     this.refillNotes();
     this.router.navigate(['/']);
   }
@@ -37,13 +37,13 @@ export class NoteListComponent implements OnInit {
   private removeNote(index:number) {
     let key=localStorage.key(index);
     localStorage.removeItem(key);
-    this.notes.splice(index,1);
+    this._notes.splice(index,1);
     this.router.navigate(['/']);
   }
 
   private refillNotes(){
     for(let x=0;x<localStorage.length;x++){
-      this.notes[x]=localStorage.key(x);
+      this._notes[x]=localStorage.key(x);
     }
   }
 }
