@@ -1,5 +1,5 @@
 <div>
-  <div id=text contenteditable="none" [innerHTML]='marked'></div>
+  <div id=text contenteditable="none" innerHTML='{{ content | mark }}'></div>
   <button (click)='save()' (click)='edit()'>{{ button }}</button>
-  <textarea *ngIf='editable' [(ngModel)] = 'content'></textarea>
+  <textarea *ngIf='_editable' [(ngModel)] = 'content'></textarea>
 </div>
