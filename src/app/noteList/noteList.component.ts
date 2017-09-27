@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import * as marked from 'marked';
 import { Router } from '@angular/router';
 
 @Component({
