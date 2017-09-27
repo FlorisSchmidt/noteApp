@@ -1,10 +1,11 @@
 import { TestBed, async } from '@angular/core/testing';
-
 import { AppComponent } from './app.component';
-
 import { NoteListComponent } from './noteList/noteList.component';
 import { NoteTextComponent } from './noteText/noteText.component';
 import { FormsModule } from '@angular/forms'
+import { RouterModule } from '@angular/router';
+import { APP_BASE_HREF } from '@angular/common';
+import { MarkPipe } from './mark.pipe';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -12,11 +13,19 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         NoteListComponent,
-        NoteTextComponent
+        NoteTextComponent,
+        MarkPipe
       ],
       imports: [
-        FormsModule
-      ]
+        FormsModule,
+        RouterModule.forRoot([
+          {
+          path: 'note/:i', 
+          component: NoteTextComponent 
+          }
+        ])
+      ],
+    providers: [{provide: APP_BASE_HREF, useValue : '/' }],
     }).compileComponents();
   }));
 
