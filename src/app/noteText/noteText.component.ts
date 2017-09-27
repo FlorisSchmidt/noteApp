@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as marked from 'marked';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-noteText',
@@ -9,32 +8,32 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class NoteTextComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
-  private editable:boolean;
-  private button:string;
-  private content:string;
-  private marked:string;
-  private id:number;
-  private sub:any;
+  private _editable:boolean;
+  private _button:string;
+  public content:string;
+  public id:number;
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.id = +params.get('i');
     })
-    this.content = localStorage.getItem(localStorage.key(this.id));
-    this.marked = marked(this.content);
-    this.button='EDIT';
-    this.editable=false;
+    this.router.events.subscribe(event => {
+      this.content = localStorage.getItem(localStorage.key(this.id))
+    });
+    this.content = localStorage.getItem(localStorage.key(this.id))
+
+    this._button='EDIT';
+    this._editable=false;
   }
 
   save(){
     localStorage.setItem(localStorage.key(this.id), this.content);
-    this.marked = marked(this.content);
   }
 
   edit(){
-    this.editable ? this.editable=false: this.editable=true;
-    this.editable ? this.button='SAVE': this.button='EDIT';
+    this._editable ? this._editable=false: this._editable=true;
+    this._editable ? this._button='SAVE': this._button='EDIT';
   }
 }
