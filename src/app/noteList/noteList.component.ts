@@ -13,37 +13,34 @@ export class NoteListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.refillNotes();
+    this.getNotes();
   }
 
-  private _notes:string[]=[];
-  private _inputValue:string = '';
+  private _notes=[];
+  private _inputValue:string;
 
-  private addNote(input:string) {
-    if(input==''){
-      alert("Input is empty");
-      return 1;
+  private addNote(_inputValue:string){
+    if(_inputValue==''){
+      console.log("Empty input");
+    } else {
+
+    var newObject = {'name':_inputValue,'content':''};
+    this._notes.push(newObject);
+    localStorage.setItem('notes',JSON.stringify(this._notes));
     }
-    if(localStorage.getItem(input)!=undefined){
-      alert("It exists already!");
-      return 2;
-    }
-    localStorage.setItem(input,'');
-    this._inputValue='';
-    this.refillNotes();
-    this.router.navigate(['/']);
   }
 
-  private removeNote(index:number) {
-    let key=localStorage.key(index);
-    localStorage.removeItem(key);
+  private removeNote(index:number){
     this._notes.splice(index,1);
-    this.router.navigate(['/']);
+    localStorage.setItem('notes',JSON.stringify(this._notes));
   }
 
-  private refillNotes(){
-    for(let x=0;x<localStorage.length;x++){
-      this._notes[x]=localStorage.key(x);
-    }
+  private getNotes(){
+    this._notes = JSON.parse(localStorage.getItem('notes'));
   }
 }
+
+// Pseudo code
+// Get Notes
+// Append new note
+// Set notes

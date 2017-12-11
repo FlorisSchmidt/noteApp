@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NavigationStart, NavigationEnd } from '@angular/router';
+import { Navigation } from 'selenium-webdriver';
+
 
 @Component({
   selector: 'app-noteText',
@@ -10,30 +13,27 @@ export class NoteTextComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
-  private _editable:boolean;
-  private _button:string;
   public content:string;
+  public object;
   public id:number;
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.id = +params.get('i');
+      this.getObject(this.id);
     })
-    this.router.events.subscribe(event => {
-      this.content = localStorage.getItem(localStorage.key(this.id))
-    });
-    this.content = localStorage.getItem(localStorage.key(this.id))
 
-    this._button='EDIT';
-    this._editable=false;
+    let object = JSON.parse(localStorage.getItem('notes'));
+    this.content = object.content;
   }
 
-  save(){
-    localStorage.setItem(localStorage.key(this.id), this.content);
+  saveContent(){
+    this.object[this.id].content = this.content;
+    localStorage.setItem('notes', JSON.stringify(this.object));
   }
 
-  edit(){
-    this._editable ? this._editable=false: this._editable=true;
-    this._editable ? this._button='SAVE': this._button='EDIT';
+  getObject(index:number){
+    this.object = JSON.parse(localStorage.getItem('notes'));
+    this.content = this.object[index].content;
   }
 }

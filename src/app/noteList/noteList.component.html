@@ -7,7 +7,7 @@
       *ngFor='let note of _notes; let i = index'
       routerLinkActive='active'
       [routerLink]="['note', i]">
-      {{ note }}
+      {{ note.name }}
       <span (click)='removeNote(i)'>X</span>
   </li>
   </ul>
